@@ -1,0 +1,28 @@
+services:
+  web:
+    container_name: ${COMPOSE_PROJECT_NAME}
+    image: node:24.4.1-bullseye
+    working_dir: /usr/src/app
+    stdin_open: true
+    user: node
+    volumes:
+      - ../:/usr/src/app
+      - yarncache:/root/.cache/yarn
+    ports:
+      - "${VIRTUAL_PORT}:3000"
+  db:
+    container_name: ${COMPOSE_PROJECT_NAME}-db
+    image: postgres:16
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+volumes:
+  db:
+  yarncache:
+    external: true

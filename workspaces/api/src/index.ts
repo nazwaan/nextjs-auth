@@ -13,5 +13,5 @@ app.use(router.allowedMethods());
 
 const PORT = 3001;
 app.listen(PORT, () => {
-  console.log(`Koa server listening on port ${PORT}`);
+  console.log(`Server listening on port ${PORT}`);
 });

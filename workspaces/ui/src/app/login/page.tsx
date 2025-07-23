@@ -1,8 +1,13 @@
 'use client';
 import Image from "next/image";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function Home() {
+  fetch('/api/test')
+    .then(res => res.text())
+    .then(text => console.log(text))
+    .catch(() => console.log('Failed to connect'));
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 

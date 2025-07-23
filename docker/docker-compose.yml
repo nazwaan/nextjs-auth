@@ -1,7 +1,7 @@
 services:
   web:
     container_name: ${COMPOSE_PROJECT_NAME}
-    image: node:24.4.1-bullseye
+    build: .
     working_dir: /usr/src/app
     stdin_open: true
     user: node

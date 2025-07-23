@@ -1,19 +1,21 @@
 'use client';
 import Image from "next/image";
 import React, { useEffect, useState } from 'react';
+import axios from "axios";
 
 export default function Home() {
-  fetch('/api/test')
-    .then(res => res.text())
-    .then(text => console.log(text))
-    .catch(() => console.log('Failed to connect'));
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = () => {
-    console.log('Login attempted with:', { username, password });
+    console.log('Login attempted with: ', { username, password });
   };
+
+  useEffect(() => {
+    axios.get('/api/test')
+      .then(response => console.log(response.data))
+      .catch(error => console.log(`Could not connect to the server: ${error}`));
+  }, []);
 
   return (
     <div className="login-container">

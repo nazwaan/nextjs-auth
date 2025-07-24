@@ -1223,6 +1223,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/bcrypt@npm:^6":
+  version: 6.0.0
+  resolution: "@types/bcrypt@npm:6.0.0"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10c0/48b66408838f5eb59791da5a77260cef59a5291ce0945f2caa3b5a6158c44b321b684b4aa7dce771852c63271c766cadd587374273451b300377a17015c1d51d
+  languageName: node
+  linkType: hard
+
 "@types/body-parser@npm:*":
   version: 1.19.6
   resolution: "@types/body-parser@npm:1.19.6"
@@ -1843,9 +1852,11 @@ __metadata:
   resolution: "api@workspace:workspaces/api"
   dependencies:
     "@koa/router": "npm:^13.1.1"
+    "@types/bcrypt": "npm:^6"
     "@types/koa": "npm:^2.15.0"
     "@types/koa__router": "npm:^12.0.4"
     "@types/pg": "npm:^8"
+    bcrypt: "npm:^6.0.0"
     drizzle-kit: "npm:^0.31.4"
     drizzle-orm: "npm:^0.44.3"
     koa: "npm:^3.0.0"
@@ -2043,6 +2054,17 @@ __metadata:
   version: 1.0.2
   resolution: "balanced-match@npm:1.0.2"
   checksum: 10c0/9308baf0a7e4838a82bbfd11e01b1cb0f0cf2893bc1676c27c2a8c0e70cbae1c59120c3268517a8ae7fb6376b4639ef81ca22582611dbee4ed28df945134aaee
+  languageName: node
+  linkType: hard
+
+"bcrypt@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "bcrypt@npm:6.0.0"
+  dependencies:
+    node-addon-api: "npm:^8.3.0"
+    node-gyp: "npm:latest"
+    node-gyp-build: "npm:^4.8.4"
+  checksum: 10c0/006e69d4b3f0f021051fa9d998a768721a51dde28e7848e3e775ab608ba3476b25fa9262a7082ececbb0d493b0b6ca83673a6f3810b114fe90ec1bc6ae4b35b2
   languageName: node
   linkType: hard
 
@@ -4787,6 +4809,26 @@ __metadata:
   resolution: "nextjs-auth@workspace:."
   languageName: unknown
   linkType: soft
+
+"node-addon-api@npm:^8.3.0":
+  version: 8.5.0
+  resolution: "node-addon-api@npm:8.5.0"
+  dependencies:
+    node-gyp: "npm:latest"
+  checksum: 10c0/e4de0b4e70998fed7ef41933946f60565fc3a17cb83b7d626a0c0bb1f734cf7852e0e596f12681e7c8ed424163ee3cdbb4f0abaa9cc269d03f48834c263ba162
+  languageName: node
+  linkType: hard
+
+"node-gyp-build@npm:^4.8.4":
+  version: 4.8.4
+  resolution: "node-gyp-build@npm:4.8.4"
+  bin:
+    node-gyp-build: bin.js
+    node-gyp-build-optional: optional.js
+    node-gyp-build-test: build-test.js
+  checksum: 10c0/444e189907ece2081fe60e75368784f7782cfddb554b60123743dfb89509df89f1f29c03bbfa16b3a3e0be3f48799a4783f487da6203245fa5bed239ba7407e1
+  languageName: node
+  linkType: hard
 
 "node-gyp@npm:latest":
   version: 11.2.0

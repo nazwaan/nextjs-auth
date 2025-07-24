@@ -1,8 +1,10 @@
-import { users } from '../schema/user';
+import { NodePgDatabase } from 'drizzle-orm/node-postgres'
+import { DbSchema } from '../types'
+import { user } from '../schema/user';
+import { InsertUser } from '../types';
+import { hashString } from '../../utils/bcrypt-hash';
 
-type User = typeof users.$inferInsert
-
-export const userSeeds: User[] = [
+const userSeeds: InsertUser[] = [
   { username: 'alice', name: 'Alice Johnson', password: 'password123' },
   { username: 'bob', name: 'Bob Smith', password: 'securepass456' },
   { username: 'charlie', name: 'Charlie Lee', password: 'charlie789' },
@@ -14,3 +16,12 @@ export const userSeeds: User[] = [
   { username: 'irene', name: 'Irene Adler', password: 'ireneSecure!' },
   { username: 'jack', name: 'Jack Black', password: 'jackPass77' },
 ]
+
+export async function userSeeder(db: NodePgDatabase<DbSchema>) {
+  for (const userSeed of userSeeds) {
+    const hashedPassword = await hashString(userSeed.password);
+    userSeed.password = hashedPassword;
+  }
+
+  await db.insert(user).values(userSeeds);
+}

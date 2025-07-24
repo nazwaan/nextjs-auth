@@ -6,7 +6,9 @@
     "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts",
     "migrate-generate": "drizzle-kit generate --config ./src/db/drizzle.config.ts",
     "migrate-latest": "drizzle-kit push --config ./src/db/drizzle.config.ts",
-    "seed": "ts-node ./src/db/seeders/index"
+    "migrate-reset": "ts-node ./src/db/db-reset",
+    "seed": "ts-node ./src/db/seeders/index",
+    "migrate-refresh": "yarn migrate-reset && yarn migrate-latest && yarn seed"
   },
   "dependencies": {
     "@koa/router": "^13.1.1",

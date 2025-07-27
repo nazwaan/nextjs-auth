@@ -7,8 +7,19 @@ export default function Home() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log('Login attempted with: ', { username, password });
+
+    await axios.post(
+      '/api/refresh-token',
+      { username, password }
+    )
+      // .then(response => console.log(response.data))
+      .catch(error => console.log(error.response.data));
+    
+    await axios.get('/api/me')
+      .then(response => console.log(response.data))
+      .catch(error => console.log(error.response.data));
   };
 
   useEffect(() => {
@@ -28,18 +39,25 @@ export default function Home() {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') document.getElementById('password-input')?.focus();
+          }}
           className="login-input"
         />
 
         <input
+          id="password-input"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') document.getElementById('login-button')?.click()
+          }}
           className="login-input"
         />
 
-        <button onClick={handleSubmit} className="login-button">Sign In</button>
+        <button id="login-button" onClick={handleSubmit} className="login-button">Sign In</button>
       </div>
 
       <a href="#" className="forgot-password-text">Forgot your password?</a>

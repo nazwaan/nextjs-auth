@@ -61,10 +61,40 @@ router.post('/refresh-token', async (ctx) => {
     secure: false,
     sameSite: 'lax',
     maxAge: 1000 * 60 * 60,
-    path: '/api',
+    path: '/',
   });
 
   ctx.status = 200
+})
+
+router.get('/access-token', async (ctx) => {
+  const issuedToken = ctx.cookies.get('token')
+
+  if(!issuedToken) {
+    ctx.status = 401
+    ctx.body = { error: 'no token' }
+    return
+  }
+
+  try {
+    const decodedPayload = verifyToken(issuedToken) as SignedPayload
+    const { id, username, name } = decodedPayload
+
+    const user = {
+      id,
+      username,
+      name,
+    }
+
+    const accessToken = signToken(user, '10m')
+
+    console.log({ accessToken })
+    ctx.body = { token: accessToken }
+  } catch {
+    ctx.status = 401
+    ctx.body = { error: 'invalid token' }
+    return
+  }
 })
 
 router.get('/me', async (ctx) => {

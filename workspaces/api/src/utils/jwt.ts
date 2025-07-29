@@ -15,14 +15,16 @@ export interface SignedPayload {
   exp: number;
 }
 
-export function signToken(payload: Payload): string {
+export function signToken(
+  payload: Payload,
+  expiresIn: string = process.env.JWT_EXPIRES_IN || '1h',
+): string {
   const jwtSecret = process.env.JWT_SECRET as string
-  const expiresIn = process.env.JWT_EXPIRES_IN as jwt.SignOptions['expiresIn']
 
   return jwt.sign(
     payload,
     jwtSecret,
-    { expiresIn }
+    { expiresIn } as { expiresIn: jwt.SignOptions['expiresIn'] }
   );
 }
 

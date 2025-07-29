@@ -14,7 +14,8 @@ const app = new Koa();
 const router = new Router({ prefix: '/api' });
 
 router.get('/test', async (ctx) => {
-  ctx.body = 'Able to connect to the koa server!';
+  console.log('[LOG] X-Forwarded-For:', ctx.headers['x-forwarded-for'])
+  ctx.body = 'Able to connect to the koa server!'
 });
 
 router.post('/refresh-token', async (ctx) => {
@@ -64,10 +65,10 @@ router.post('/refresh-token', async (ctx) => {
   });
 
   ctx.status = 200
-});
+})
 
 router.get('/me', async (ctx) => {
-  const token = ctx.cookies.get('token');
+  const token = ctx.cookies.get('token')
 
   if(!token) {
     ctx.status = 401
@@ -87,6 +88,7 @@ router.get('/me', async (ctx) => {
   }
 })
 
+app.proxy = true;
 app.use(bodyParser());
 app.use(router.routes());
 app.use(router.allowedMethods());

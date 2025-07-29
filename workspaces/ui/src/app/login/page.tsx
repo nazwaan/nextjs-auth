@@ -8,13 +8,9 @@ export default function Home() {
   const [password, setPassword] = useState('');
 
   const handleSubmit = async () => {
-    console.log('Login attempted with: ', { username, password });
+    console.log('Login attempted with: ', { username, password })
 
-    await axios.post(
-      '/api/refresh-token',
-      { username, password }
-    )
-      // .then(response => console.log(response.data))
+    await axios.post('/api/refresh-token', { username, password })
       .catch(error => console.log(error.response.data));
     
     await axios.get('/api/me')

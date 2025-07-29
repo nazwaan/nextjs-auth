@@ -10,6 +10,11 @@ services:
       - yarncache:/root/.cache/yarn
     ports:
       - "${VIRTUAL_PORT}:3000"
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.frontend.rule=Host:${VIRTUAL_HOST}'
+      - 'traefik.docker.network=${PROXY_NETWORK}'
+      - 'traefik.port=${VIRTUAL_PORT}'
   db:
     container_name: ${COMPOSE_PROJECT_NAME}-db
     image: postgres:16
@@ -26,3 +31,8 @@ volumes:
   db:
   yarncache:
     external: true
+
+networks:
+  default:
+    external: true
+    name: ${PROXY_NETWORK}

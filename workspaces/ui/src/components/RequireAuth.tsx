@@ -29,7 +29,7 @@ export default function RequireAuth({ children }: { children: React.ReactNode })
       console.log('Client middleware hit: ' + pathname)
 
       getAccessToken()
-    }
+    } else { setLoading(false) }
   }, [pathname])
 
   if (loading) return <div>Loading...</div>

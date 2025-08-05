@@ -19,7 +19,7 @@ router.get('/test', async (ctx) => {
 });
 
 router.post('/refresh-token', async (ctx) => {
-  const issuedToken = ctx.cookies.get('token')
+  const issuedToken = ctx.cookies.get('refresh-token')
   const { username, password: plainPassword } = ctx.request.body as { username: string, password: string };
 
   if(issuedToken) {
@@ -52,11 +52,12 @@ router.post('/refresh-token', async (ctx) => {
     id: result.id,
     username: result.username,
     name: result.name,
+    type: 'refresh-token',
   }
   
   const token = signToken(payload)
 
-  ctx.cookies.set('token', token, {
+  ctx.cookies.set('refresh-token', token, {
     httpOnly: true,
     secure: false,
     sameSite: 'lax',
@@ -68,7 +69,7 @@ router.post('/refresh-token', async (ctx) => {
 })
 
 router.get('/access-token', async (ctx) => {
-  const issuedToken = ctx.cookies.get('token')
+  const issuedToken = ctx.cookies.get('refresh-token')
 
   if(!issuedToken) {
     ctx.status = 401
@@ -78,12 +79,15 @@ router.get('/access-token', async (ctx) => {
 
   try {
     const decodedPayload = verifyToken(issuedToken) as SignedPayload
-    const { id, username, name } = decodedPayload
+    const { id, username, name, type } = decodedPayload
+
+    if(type != 'refresh-token') { throw '' }
 
     const user = {
       id,
       username,
       name,
+      type: 'access-token',
     }
 
     const accessToken = signToken(user, '10m')
@@ -98,7 +102,7 @@ router.get('/access-token', async (ctx) => {
 })
 
 router.get('/me', async (ctx) => {
-  const token = ctx.cookies.get('token')
+  const token = ctx.cookies.get('refresh-token')
 
   if(!token) {
     ctx.status = 401

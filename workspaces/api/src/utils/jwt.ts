@@ -5,12 +5,14 @@ export interface Payload {
   id: number;
   username: string;
   name: string;
+  type: string;
 }
 
 export interface SignedPayload {
   id: number;
   username: string;
   name: string;
+  type: string;
   iat: number;
   exp: number;
 }

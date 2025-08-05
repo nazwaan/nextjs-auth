@@ -1,11 +1,12 @@
 'use client';
-import Image from "next/image";
-import React, { useEffect, useState } from 'react';
-import axios from "axios";
+import React, { useEffect, useState } from 'react'
+import axios from "axios"
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const router = useRouter()
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleSubmit = async () => {
     console.log('Login attempted with: ', { username, password })
@@ -16,6 +17,8 @@ export default function Home() {
     await axios.get('/api/me')
       .then(response => console.log(response.data))
       .catch(error => console.log(error.response.data));
+
+    router.push("/")
   };
 
   useEffect(() => {

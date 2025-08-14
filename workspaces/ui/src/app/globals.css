@@ -73,3 +73,8 @@ body {
   @apply text-white hover:underline;
   @apply transition-colors duration-200;
 }
+
+.home-page {
+  @apply flex flex-col justify-center items-center;
+  @apply h-screen gap-3;
+}

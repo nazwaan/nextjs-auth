@@ -112,8 +112,6 @@ router.get('/me', async (ctx) => {
   
   try {
     const payload = verifyToken(token) as SignedPayload
-    console.log(new Date(payload.iat * 1000))
-    console.log(new Date(payload.exp * 1000))
     ctx.body = { payload }
   } catch(err) {
     ctx.status = 401

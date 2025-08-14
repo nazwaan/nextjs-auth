@@ -13,10 +13,6 @@ export default function Home() {
 
     await axios.post('/api/refresh-token', { username, password })
       .catch(error => console.log(error.response.data));
-    
-    await axios.get('/api/me')
-      .then(response => console.log(response.data))
-      .catch(error => console.log(error.response.data));
 
     router.push("/")
   };
